@@ -5,8 +5,12 @@
         <div class="card">
             <div class="card-header"><h4>Create Book</h4></div>
             <div class="card-body">
-                @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                @if (session()->has('add_status'))
+                    @if (session('add_status'))
+                        <div class="alert alert-success">Created Successfully</div>
+                    @else
+                        <div class="alert alert-danger">Failed to create book</div>
+                    @endif
                 @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">

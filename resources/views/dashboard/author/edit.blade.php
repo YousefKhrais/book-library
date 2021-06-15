@@ -5,8 +5,12 @@
         <div class="card">
             <div class="card-header"><h4>Edit Author</h4></div>
             <div class="card-body">
-                @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                @if (session()->has('add_status'))
+                    @if (session('add_status'))
+                        <div class="alert alert-success">Updated Successfully</div>
+                    @else
+                        <div class="alert alert-danger">Failed to update author</div>
+                    @endif
                 @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -27,8 +31,8 @@
                                 Author Name
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="name" value=""
-                                       placeholder="{{$author->name}}"/>
+                                <input type="text" class="form-control" name="name" value="{{$author->name}}"
+                                       placeholder="Name" required/>
                             </td>
                         </tr>
                         <tr>
@@ -36,8 +40,8 @@
                                 Country
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="country" value=""
-                                       placeholder="{{$author->country}}"/>
+                                <input type="text" class="form-control" name="country" value="{{$author->country}}"
+                                       placeholder="Country" required/>
                             </td>
                         </tr>
                         <tr>
@@ -47,8 +51,8 @@
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender"
-                                           id="flexRadioDefault1"
-                                           @if($author->gender=='male')
+                                           id="flexRadioDefault1" value="Male"
+                                           @if($author->gender=='Male')
                                            checked
                                         @endif
                                     >
@@ -58,8 +62,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender"
-                                           id="flexRadioDefault2"
-                                           @if($author->gender=='female')
+                                           id="flexRadioDefault2" value="Female"
+                                           @if($author->gender=='Female')
                                            checked
                                         @endif
                                     >

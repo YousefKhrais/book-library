@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -21,33 +22,42 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::where('id', $id)->first();
-        return view('dashboard.category.edit')->with('category', $category);
+        if ($category != null) {
+            return view('dashboard.category.edit')->with('category', $category);
+        } else {
+            return redirect()->route('admin.category.index')->withErrors(['Category does not exists']);
+        }
     }
 
-    public function show($id)
-    {
-        return view('dashboard.category.show');
-    }
-
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $name = $request['name'];
         $description = $request['description'];
 
-        $category = new Category();
-        $category->name = $name;
-        $category->description = $description;
+        if (Category::where('name', '=', $name)->count() == 0) {
+            $category = new Category();
+            $category->name = $name;
+            $category->description = $description;
 
-        $result = $category->save();
+            $result = $category->save();
 
-        $request->session()->flash('message', 'Successfully created a new category');
-        return redirect()->back();
+            return redirect()->back()->with('add_status', $result);
+        } else {
+            return redirect()->back()->withErrors(['Another Category with same name already exists']);
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $request->session()->flash('message', 'Updated Successfully ');
-        return redirect()->back();
+        $name = $request['name'];
+        $description = $request['description'];
+
+        if (Category::where('name', '=', $name)->count() == 0) {
+            $result = Category::where('id', $id)->update(['name' => $name, 'description' => $description]);
+            return redirect()->back()->with('add_status', $result);
+        } else {
+            return redirect()->back()->withErrors(['Another Category with same name already exists']);
+        }
     }
 
     public function destroy($id)

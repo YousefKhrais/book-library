@@ -5,8 +5,12 @@
         <div class="card">
             <div class="card-header"><h4>Create Author</h4></div>
             <div class="card-body">
-                @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                @if (session()->has('add_status'))
+                    @if (session('add_status'))
+                        <div class="alert alert-success">Created Successfully</div>
+                        @else
+                            <div class="alert alert-danger">Failed to create author</div>
+                    @endif
                 @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -17,7 +21,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.author.create') }}" method="POST">
+                <form action="{{ route('admin.author.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="0" id="menuElementId"/>
                     <table class="table table-striped table-bordered datatable">
@@ -33,7 +37,7 @@
                                     name="name"
                                     value=""
                                     placeholder="Name"
-                                />
+                                    required/>
                             </td>
                         </tr>
                         <tr>
@@ -47,7 +51,7 @@
                                     name="country"
                                     value=""
                                     placeholder="country"
-                                />
+                                    required/>
                             </td>
                         </tr>
                         <tr>
@@ -57,14 +61,14 @@
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender"
-                                           id="flexRadioDefault1" checked>
+                                           value="Male" id="flexRadioDefault1" checked>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Male
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="gender"
-                                           id="flexRadioDefault2">
+                                           value="Female" id="flexRadioDefault2">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Female
                                     </label>

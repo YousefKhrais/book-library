@@ -5,8 +5,12 @@
         <div class="card">
             <div class="card-header"><h4>Edit Publisher</h4></div>
             <div class="card-body">
-                @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                @if (session()->has('add_status'))
+                    @if (session('add_status'))
+                        <div class="alert alert-success">Updated Successfully</div>
+                    @else
+                        <div class="alert alert-danger">Failed to update author</div>
+                    @endif
                 @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -27,8 +31,8 @@
                                 Publisher Name
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="name" value=""
-                                       placeholder="{{$publisher->name}}"/>
+                                <input type="text" class="form-control" name="name" value="{{$publisher->name}}"
+                                       placeholder="Name" required/>
                             </td>
                         </tr>
                         <tr>
@@ -36,8 +40,8 @@
                                 Address
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="address" value=""
-                                       placeholder="{{$publisher->address}}"/>
+                                <input type="text" class="form-control" name="address" value="{{$publisher->address}}"
+                                       placeholder="Address" required/>
                             </td>
                         </tr>
                         <tr>
@@ -45,8 +49,8 @@
                                 Website
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="website" value=""
-                                       placeholder="{{$publisher->website}}"/>
+                                <input type="text" class="form-control" name="website" value="{{$publisher->website}}"
+                                       placeholder="Website" required/>
                             </td>
                         </tr>
                         </tbody>

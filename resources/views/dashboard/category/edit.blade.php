@@ -5,8 +5,12 @@
         <div class="card">
             <div class="card-header"><h4>Edit Category</h4></div>
             <div class="card-body">
-                @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                @if (session()->has('add_status'))
+                    @if (session('add_status'))
+                        <div class="alert alert-success">Updated Successfully</div>
+                    @else
+                        <div class="alert alert-danger">Failed to update author</div>
+                    @endif
                 @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -27,8 +31,8 @@
                                 Category Name
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="name" value=""
-                                       placeholder="{{$category->name}}"/>
+                                <input type="text" class="form-control" name="name" value="{{$category->name}}"
+                                       placeholder="Name" required/>
                             </td>
                         </tr>
                         <tr>
@@ -36,8 +40,9 @@
                                 Description
                             </th>
                             <td>
-                                <input type="text" class="form-control" name="description" value=""
-                                       placeholder="{{$category->description}}"/>
+                                <input type="text" class="form-control" name="description"
+                                       value="{{$category->description}}"
+                                       placeholder="Description" required/>
                             </td>
                         </tr>
                         </tbody>

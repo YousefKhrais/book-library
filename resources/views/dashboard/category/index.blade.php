@@ -5,6 +5,15 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <p class="card-title">Categories Table</p>
                     <div class="row">
                         <div class="col-12">
@@ -26,7 +35,8 @@
                                             <td class="text-center">{{$category->id}}</td>
                                             <td class="text-center">{{$category->name}}</td>
                                             <td class="text-center">{{$category->description}}</td>
-                                            <td class="text-center">{{$category->books_count}}</td>
+{{--                                            <td class="text-center">{{$category->books_count}}</td>--}}
+                                            <td class="text-center">0</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-secondary"
                                                         onclick="location.href='{{ url('admin/category/edit/'.$category->id) }}'">
