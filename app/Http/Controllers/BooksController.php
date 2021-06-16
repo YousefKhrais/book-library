@@ -65,7 +65,7 @@ class BooksController extends Controller
         $release_date = $request['release_date'];
         $image_url = $request['image_url'];
 
-        if (Book::where('name', '=', $name)->count() == 0) {
+        if (!Book::where([['name', '=', $name], ['version', '=', $version]])->exists()) {
             $book = new Book();
             $book->name = $name;
             $book->author_id = $author_id;
@@ -93,7 +93,7 @@ class BooksController extends Controller
         $release_date = $request['release_date'];
         $image_url = $request['image_url'];
 
-        if (Book::where('name', '=', $name)->count() == 0) {
+        if (!Book::where([['id', '!=', $id], ['name', '=', $name], ['version', '=', $version]])->exists()) {
             $result = Book::where('id', $id)->update([
                 'name' => $name,
                 'author_id' => $author_id,

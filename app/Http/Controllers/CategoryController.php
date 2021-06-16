@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $name = $request['name'];
         $description = $request['description'];
 
-        if (Category::where('name', '=', $name)->count() == 0) {
+        if (!Category::where('name', '=', $name)->exists()) {
             $category = new Category();
             $category->name = $name;
             $category->description = $description;
@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $name = $request['name'];
         $description = $request['description'];
 
-        if (Category::where('name', '=', $name)->count() == 0) {
+        if (!Category::where([['id', '!=', $id], ['name', '=', $name]])->exists()) {
             $result = Category::where('id', $id)->update(['name' => $name, 'description' => $description]);
             return redirect()->back()->with('add_status', $result);
         } else {

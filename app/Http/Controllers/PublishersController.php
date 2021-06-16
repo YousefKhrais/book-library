@@ -35,7 +35,7 @@ class PublishersController extends Controller
         $address = $request['address'];
         $website = $request['website'];
 
-        if (Publisher::where('name', '=', $name)->count() == 0) {
+        if (!Publisher::where([['name', '=', $name]])->exists()) {
             $publisher = new Publisher();
             $publisher->name = $name;
             $publisher->address = $address;
@@ -56,7 +56,7 @@ class PublishersController extends Controller
         $address = $request['address'];
         $website = $request['website'];
 
-        if (Publisher::where('name', '=', $name)->count() == 0) {
+        if (!Publisher::where([['id', '!=', $id], ['name', '=', $name]])->exists()) {
             $result = Publisher::where('id', $id)->update(['name' => $name, 'address' => $address, 'website' => $website]);
             return redirect()->back()->with('add_status', $result);
         } else {

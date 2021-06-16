@@ -36,7 +36,7 @@ class AuthorsController extends Controller
         $country = $request['country'];
         $gender = $request['gender'];
 
-        if (Author::where('name', '=', $name)->count() == 0) {
+        if (!Author::where('name', '=', $name)->exists()) {
             $author = new Author();
             $author->name = $name;
             $author->country = $country;
@@ -57,7 +57,7 @@ class AuthorsController extends Controller
         $country = $request['country'];
         $gender = $request['gender'];
 
-        if (Author::where('name', '=', $name)->count() == 0) {
+        if (!Author::where([['id', '!=', $id], ['name', '=', $name]])->exists()) {
             $result = Author::where('id', $id)->update(['name' => $name, 'country' => $country, 'gender' => $gender]);
             return redirect()->back()->with('add_status', $result);
         } else {
