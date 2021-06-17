@@ -14,7 +14,18 @@
                             </ul>
                         </div>
                     @endif
-                    <p class="card-title">Categories Table</p>
+                    <div class="page-header">
+                        <div class="pull-left">
+                            <p class="card-title">Categories Table</p>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-success"
+                                    onclick="location.href='{{ url('admin/category/create/') }}'">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -25,6 +36,7 @@
                                         <th class="text-center">Category Name</th>
                                         <th class="text-center">Description</th>
                                         <th class="text-center">Books Count</th>
+                                        <th class="text-center">View Books</th>
                                         <th class="text-center">Edit</th>
                                         <th class="text-center">Delete</th>
                                     </tr>
@@ -35,10 +47,16 @@
                                             <td class="text-center">{{$category->id}}</td>
                                             <td class="text-center">{{$category->name}}</td>
                                             <td class="text-center">{{$category->description}}</td>
-{{--                                            <td class="text-center">{{$category->books_count}}</td>--}}
+                                            {{--                                            <td class="text-center">{{$category->books_count}}</td>--}}
                                             <td class="text-center">0</td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-secondary"
+                                                <button type="button" class="btn btn-primary"
+                                                        onclick="location.href='{{ url('admin/category/show/'.$category->id) }}'">
+                                                    View Books
+                                                </button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-warning"
                                                         onclick="location.href='{{ url('admin/category/edit/'.$category->id) }}'">
                                                     Edit
                                                 </button>
@@ -55,10 +73,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn btn-primary"
-                                    onclick="location.href='{{ url('admin/category/create/') }}'">
-                                <i class="fa fa-plus"></i> Add
-                            </button>
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
+use App\Http\Controllers\Controller;
 
 class AuthorsController extends Controller
 {
@@ -25,6 +26,19 @@ class AuthorsController extends Controller
         $author = Author::where('id', $id)->first();
         if ($author != null) {
             return view('dashboard.author.edit')->with('author', $author);
+        } else {
+            return redirect()->route('admin.author.index')->withErrors(['Author does not exists']);
+        }
+    }
+
+    public function show($id)
+    {
+        $author = Author::where('id', $id)
+            ->with('books')
+            ->first();
+
+        if ($author != null) {
+            return view('dashboard.author.show')->with('author', $author);
         } else {
             return redirect()->route('admin.author.index')->withErrors(['Author does not exists']);
         }

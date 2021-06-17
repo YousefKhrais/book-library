@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -24,6 +25,19 @@ class CategoryController extends Controller
         $category = Category::where('id', $id)->first();
         if ($category != null) {
             return view('dashboard.category.edit')->with('category', $category);
+        } else {
+            return redirect()->route('admin.category.index')->withErrors(['Category does not exists']);
+        }
+    }
+
+    public function show($id)
+    {
+        $category = Category::where('id', $id)
+            ->with('books')
+            ->first();
+
+        if ($category != null) {
+            return view('dashboard.category.show')->with('category', $category);
         } else {
             return redirect()->route('admin.category.index')->withErrors(['Category does not exists']);
         }

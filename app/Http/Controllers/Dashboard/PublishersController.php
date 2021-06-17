@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PublisherRequest;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
@@ -24,6 +25,19 @@ class PublishersController extends Controller
         $publisher = Publisher::where('id', $id)->first();
         if ($publisher != null) {
             return view('dashboard.publisher.edit')->with('publisher', $publisher);
+        } else {
+            return redirect()->route('admin.publisher.index')->withErrors(['Publisher does not exists']);
+        }
+    }
+
+    public function show($id)
+    {
+        $publisher = Publisher::where('id', $id)
+            ->with('books')
+            ->first();
+
+        if ($publisher != null) {
+            return view('dashboard.publisher.show')->with('publisher', $publisher);
         } else {
             return redirect()->route('admin.publisher.index')->withErrors(['Publisher does not exists']);
         }
