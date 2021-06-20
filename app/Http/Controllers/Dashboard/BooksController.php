@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class BooksController extends Controller
 {
@@ -77,6 +78,12 @@ class BooksController extends Controller
             $book->image_url = $image_url;
 
             $result = $book->save();
+
+            if ($result) {
+                Author::where('id', $author_id)->update(['books_count' => DB::raw('books_count+1')]);
+                Category::where('id', $category_id)->update(['books_count' => DB::raw('books_count+1')]);
+                Publisher::where('id', $publisher_id)->update(['books_count'=> DB::raw('books_count+1')]);
+            }
 
             return redirect()->back()->with('add_status', $result);
         } else {

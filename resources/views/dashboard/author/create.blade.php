@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.dashboard.main')
 
 @section('pageContent')
     <div class="col-sm-13">

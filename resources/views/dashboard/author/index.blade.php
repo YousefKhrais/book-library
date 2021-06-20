@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.dashboard.main')
 
 @section('pageContent')
     <div class="row">
@@ -53,13 +53,13 @@
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary"
                                                         onclick="location.href='{{ url('admin/author/show/'.$author->id) }}'">
-                                                    View Books
+                                                    <i class="fa fa-book"></i> View Books
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-warning"
+                                                <button class="btn btn-warning" style="color:white"
                                                         onclick="location.href='{{ url('admin/author/edit/'.$author->id) }}'">
-                                                    Edit
+                                                    <i class="fa fa-edit"></i> Edit
                                                 </button>
                                             </td>
                                             <td class="text-center">

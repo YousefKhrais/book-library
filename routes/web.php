@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', 'User\HomeController@index')->name('home');
+
+Route::get('/book/', 'User\BooksController@index')->name('user.book.index');
+Route::get('/book/search', 'User\BooksController@search')->name('user.book.search');
+Route::get('/book/show/{id}', 'User\BooksController@show');
+
+Route::get('/category/show/{id}', 'User\CategoryController@show');
+
+Route::get('/author/', 'User\AuthorsController@index')->name('user.author.index');
+Route::get('/author/show/{id}', 'User\AuthorsController@show');
+
+Route::get('/publisher/', 'User\PublishersController@index')->name('user.publisher.index');
+Route::get('/publisher/show/{id}', 'User\PublishersController@show');
 
 Auth::routes();
 

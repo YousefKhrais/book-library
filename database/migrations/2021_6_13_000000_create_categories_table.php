@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->integer('books_count');
             $table->timestamps();
         });
     }

@@ -52,6 +52,7 @@ class CategoryController extends Controller
             $category = new Category();
             $category->name = $name;
             $category->description = $description;
+            $category->books_count = 0;
 
             $result = $category->save();
 

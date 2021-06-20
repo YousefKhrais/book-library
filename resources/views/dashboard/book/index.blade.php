@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.dashboard.main')
 
 @section('pageContent')
 
@@ -62,9 +62,9 @@
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning" style="color:white"
                                                         onclick="location.href='{{ url('admin/book/edit/'.$book->id) }}'">
-                                                    Edit
+                                                    <i class="fa fa-edit"></i> Edit
                                                 </button>
 
                                             </td>

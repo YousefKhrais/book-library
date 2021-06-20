@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.dashboard.main')
 
 @section('pageContent')
     <div class="row">
@@ -47,18 +47,17 @@
                                             <td class="text-center">{{$category->id}}</td>
                                             <td class="text-center">{{$category->name}}</td>
                                             <td class="text-center">{{$category->description}}</td>
-                                            {{--                                            <td class="text-center">{{$category->books_count}}</td>--}}
-                                            <td class="text-center">0</td>
+                                            <td class="text-center">{{$category->books_count}}</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary"
                                                         onclick="location.href='{{ url('admin/category/show/'.$category->id) }}'">
-                                                    View Books
+                                                    <i class="fa fa-book"></i> View Books
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning" style="color:white"
                                                         onclick="location.href='{{ url('admin/category/edit/'.$category->id) }}'">
-                                                    Edit
+                                                    <i class="fa fa-edit"></i> Edit
                                                 </button>
                                             </td>
                                             <td class="text-center">
