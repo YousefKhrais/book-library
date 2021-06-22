@@ -31,13 +31,8 @@
                                 Book Name
                             </th>
                             <td>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    name="name"
-                                    value=""
-                                    placeholder="Name"
-                                    required/>
+                                <input type="text" class="form-control" name="name" value="" placeholder="Name"
+                                       required/>
                             </td>
                         </tr>
                         <tr>
@@ -131,5 +126,16 @@
             </div>
         </div>
     </div>
+
+    {{--    <script type="text/javascript">--}}
+    {{--        $('#save-btn').click(function (e) {--}}
+    {{--            e.preventDefault();--}}
+
+    {{--            var submitConfirm = confirm("Are you sure");--}}
+    {{--            if (submitConfirm) {--}}
+    {{--                $('#save-car-form').submit();--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--    </script>--}}
 @stop
 

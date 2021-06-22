@@ -41,7 +41,22 @@ class BooksController extends Controller
 
     public function search(Request $request)
     {
-        $search_input = $request['search_input'];
-        dd($search_input);
+        $q = $request['search_input'];
+
+        $books = Book::leftJoin('authors', 'authors.id', 'books.id')
+            ->leftJoin('categories', 'categories.id', 'books.id')
+            ->leftJoin('publishers', 'publishers.id', 'books.id')
+            ->where('books.name', 'LIKE', '%' . $q . '%')
+            ->orWhere('categories.name', 'LIKE', '%' . $q . '%')
+            ->orWhere('publishers.name', 'LIKE', '%' . $q . '%')
+            ->orWhere('authors.name', 'LIKE', '%' . $q . '%')
+            ->select('books.*')
+            ->get();
+
+        $categories = Category::get();
+
+        return view('user.book.index')
+            ->with('books', $books)
+            ->with('categories', $categories);
     }
 }

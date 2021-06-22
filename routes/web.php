@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit/{id}', 'Dashboard\BooksController@edit');
             Route::post('/store', 'Dashboard\BooksController@store')->name('admin.book.store');
             Route::post('/update/{id}', 'Dashboard\BooksController@update');
-            Route::post('/delete/{id}', 'Dashboard\BooksController@delete');
+            Route::post('/delete/{id}', 'Dashboard\BooksController@destroy');
         });
 
         Route::prefix('/author')->group(function () {
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/show/{id}', 'Dashboard\AuthorsController@show');
             Route::post('/store', 'Dashboard\AuthorsController@store')->name('admin.author.store');
             Route::post('/update/{id}', 'Dashboard\AuthorsController@update');
-            Route::post('/delete/{id}', 'Dashboard\AuthorsController@delete');
+            Route::post('/delete/{id}', 'Dashboard\AuthorsController@destroy');
         });
 
         Route::prefix('/publisher')->group(function () {
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/show/{id}', 'Dashboard\PublishersController@show');
             Route::post('/store', 'Dashboard\PublishersController@store')->name('admin.publisher.store');
             Route::post('/update/{id}', 'Dashboard\PublishersController@update');
-            Route::post('/delete/{id}', 'Dashboard\PublishersController@delete');
+            Route::post('/delete/{id}', 'Dashboard\PublishersController@destroy');
         });
 
         Route::prefix('/category')->group(function () {
@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/show/{id}', 'Dashboard\CategoryController@show');
             Route::post('/store', 'Dashboard\CategoryController@store')->name('admin.category.store');
             Route::post('/update/{id}', 'Dashboard\CategoryController@update');
-            Route::post('/delete/{id}', 'Dashboard\CategoryController@delete');
+            Route::post('/delete/{id}', 'Dashboard\CategoryController@destroy');
         });
     });
 });

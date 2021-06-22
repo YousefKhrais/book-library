@@ -16,7 +16,7 @@
                     @endif
                     <div class="page-header">
                         <div class="pull-left">
-                            <p class="card-title">Categories Table</p>
+                            <p class="card-title">Publishers Table</p>
                         </div>
                         <div class="pull-right">
                             <button class="btn btn-success"
@@ -66,11 +66,12 @@
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-danger"
-                                                        onclick="location.href='{{ url('admin/publisher/delete/'.$publisher->id) }}'">
-                                                    <i class="fa fa-trash"></i>
-                                                    Delete
-                                                </button>
+                                                <form method="POST" action="{{ URL('admin/publisher/delete/'.$publisher->id) }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button class="btn btn-danger" type="submit">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

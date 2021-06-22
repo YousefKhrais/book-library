@@ -10,6 +10,7 @@ use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
@@ -78,13 +79,11 @@ class BooksController extends Controller
             $book->image_url = $image_url;
 
             $result = $book->save();
-
             if ($result) {
                 Author::where('id', $author_id)->update(['books_count' => DB::raw('books_count+1')]);
                 Category::where('id', $category_id)->update(['books_count' => DB::raw('books_count+1')]);
-                Publisher::where('id', $publisher_id)->update(['books_count'=> DB::raw('books_count+1')]);
+                Publisher::where('id', $publisher_id)->update(['books_count' => DB::raw('books_count+1')]);
             }
-
             return redirect()->back()->with('add_status', $result);
         } else {
             return redirect()->back()->withErrors(['Another Book with same name and version already exists']);
@@ -119,7 +118,20 @@ class BooksController extends Controller
 
     public function destroy($id)
     {
-        return redirect()->back();
+        $book = Book::where('id', $id)->first();
+        if ($book != null) {
+            $result = $book->delete();
+
+            if ($result) {
+                Author::where('id', $book->author_id)->update(['books_count' => DB::raw('books_count-1')]);
+                Category::where('id', $book->category_id)->update(['books_count' => DB::raw('books_count-1')]);
+                Publisher::where('id', $book->publisher_id)->update(['books_count' => DB::raw('books_count-1')]);
+            }
+
+            return redirect()->back()->with('add_status', $result);
+        } else {
+            return redirect()->route('admin.book.index')->withErrors(['Book does not exists']);
+        }
     }
 
     public function restore($id)

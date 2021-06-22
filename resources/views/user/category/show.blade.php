@@ -8,9 +8,9 @@
                 <div class="col-first">
                     <h1>Shop Category page</h1>
                     <nav class="d-flex align-items-center">
-                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">Fashon Category</a>
+                        <a href="{{route('home')}}">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{route('user.book.index')}}">Books<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{url('/category/show/'.$selected_category->id) }}">{{$selected_category->name}}</a>
                     </nav>
                 </div>
             </div>

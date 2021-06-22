@@ -63,10 +63,13 @@
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <button class="btn btn-danger"
-                                                        onclick="location.href='{{ url('admin/author/delete/'.$author->id) }}'">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button>
+                                                <form method="POST"
+                                                      action="{{ URL('admin/author/delete/'.$author->id) }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button class="btn btn-danger" type="submit">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

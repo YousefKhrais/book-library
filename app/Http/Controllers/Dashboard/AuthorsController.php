@@ -81,7 +81,18 @@ class AuthorsController extends Controller
 
     public function destroy($id)
     {
-        return redirect()->back();
+        $author = Author::where('id', $id)->first();
+
+        if ($author != null) {
+            if ($author->books_count == 0) {
+                $result = $author->delete();
+                return redirect()->back()->with('add_status', $result);
+            } else {
+                return redirect()->route('admin.author.index')->withErrors(['You have to delete the author books first']);
+            }
+        } else {
+            return redirect()->route('admin.author.index')->withErrors(['Author does not exists']);
+        }
     }
 
     public function restore($id)

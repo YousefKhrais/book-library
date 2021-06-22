@@ -77,7 +77,18 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        return redirect()->back();
+        $category = Category::where('id', $id)->first();
+
+        if ($category != null) {
+            if ($category->books_count == 0) {
+                $result = $category->delete();
+                return redirect()->back()->with('add_status', $result);
+            } else {
+                return redirect()->route('admin.category.index')->withErrors(['You have to delete the category books first']);
+            }
+        } else {
+            return redirect()->route('admin.category.index')->withErrors(['Category does not exists']);
+        }
     }
 
     public function restore($id)

@@ -63,16 +63,18 @@
                                             </td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-warning" style="color:white"
-                                                        onclick="location.href='{{ url('admin/book/edit/'.$book->id) }}'">
+                                                        onclick="location.href='{{ URL('admin/book/edit/'.$book->id) }}'">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </button>
 
                                             </td>
                                             <td class="text-center">
-                                                <button class="btn btn-danger"
-                                                        onclick="location.href='{{ url('admin/book/delete/'.$book->id) }}'">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button>
+                                                <form method="POST" action="{{ URL('admin/book/delete/'.$book->id) }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button class="btn btn-danger" type="submit">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

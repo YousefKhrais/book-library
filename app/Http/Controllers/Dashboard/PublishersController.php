@@ -80,7 +80,18 @@ class PublishersController extends Controller
 
     public function destroy($id)
     {
-        return redirect()->back();
+        $publisher = Publisher::where('id', $id)->first();
+
+        if ($publisher != null) {
+            if ($publisher->books_count == 0) {
+                $result = $publisher->delete();
+                return redirect()->back()->with('add_status', $result);
+            } else {
+                return redirect()->route('admin.publisher.index')->withErrors(['You have to delete the publisher books first']);
+            }
+        } else {
+            return redirect()->route('admin.publisher.index')->withErrors(['Publisher does not exists']);
+        }
     }
 
     public function restore($id)
